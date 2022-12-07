@@ -17,7 +17,7 @@ test('Should edit information by click on edit icon from table and displayed edi
   await expect(page.locator("text=ENGG")).toBeVisible()
 });
 
-test('Should add new deatils and display add details in table', async ({ page }) => {
+test('Should add new deatils and display added details in table', async ({ page }) => {
   await page.goto('http://localhost:3000/');
   await page.getByRole('button', { name: 'ADD' }).click();
   await page.getByRole('button', { name: 'Room size ​' }).first().click();
@@ -59,20 +59,9 @@ test('Should add new deatils and display add details in table', async ({ page })
   await expect(page.locator("text=9409632122")).toBeVisible()
 });
 
-test('Should display proper UI on landing screen', async ({ page }) => {
+test('Should delete row on click on delete icon', async ({ page }) => {
   await page.goto('http://localhost:3000/');
-  await expect(page.locator("text=First Name")).toBeVisible()
-  await expect(page.locator("text=Last Name")).toBeVisible()
-  await expect(page.locator("text=Email")).toBeVisible()
-  await expect(page.locator("text=Phone")).toBeVisible()
-  await expect(page.locator("text=Actions")).toBeVisible()
-  await expect(page.locator('[placeholder="Search with First Name/ Last Name/ Email"]')).toBeVisible()
-  await page.getByRole('button', { name: 'ADD' }).click();
-});
-
-test('Should display proper fillter result', async ({ page }) => {
-  await page.goto('http://localhost:3000/');
-  await page.getByPlaceholder('Search with First Name/ Last Name/ Email').click()
-  await page.getByPlaceholder('Search with First Name/ Last Name/ Email').fill('ENG')
+  await expect(await page.locator('tr').count()).toEqual(3)
+  await page.getByRole('row', { name: 'IDM ENG idm.test@idm.com 9999999999' }).getByTestId('DeleteForeverIcon').click();
   await expect(await page.locator('tr').count()).toEqual(2)
 });
