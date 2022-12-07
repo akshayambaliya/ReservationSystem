@@ -1,0 +1,9 @@
+.resultContainer {
+    margin-top: 32px;
+}
+
+.actionWrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 70px;
+}
